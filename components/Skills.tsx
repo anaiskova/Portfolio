@@ -1,5 +1,5 @@
 import { BarChart3, Filter, LayoutDashboard, MessagesSquare, Target, Users, type LucideIcon } from "lucide-react";
-import { competencies, toolGroups, type CompetencyIcon, type Level } from "@/content/cv";
+import type { CompetencyIcon, CV, Level } from "@/content/types";
 import { Blob } from "./ui/Blob";
 import { Section, SectionHeading } from "./ui/Section";
 import { cardRadii } from "./ui/shapes";
@@ -21,20 +21,20 @@ const levelStyle: Record<Level, string> = {
   0: "border-2 border-dashed border-secondary text-clay-ink",
 };
 
-export function Skills() {
+export function Skills({ cv }: { cv: CV }) {
   return (
-    <Section id="competencias" className="overflow-hidden">
+    <Section id="skills" className="overflow-hidden">
       <Blob shape={3} className="-right-40 top-20 h-96 w-96 bg-lilac/40" />
 
       <SectionHeading
-        title="Ferramentas e competências"
-        intro="O que uso no dia a dia para passar de dados em bruto a decisões fundamentadas."
+        title={cv.ui.skillsTitle}
+        intro={cv.ui.skillsIntro}
       />
 
       <div className="mt-10 rounded-[2rem] rounded-tl-[4rem] border border-border/50 bg-card p-8 shadow-soft md:p-10">
-        <h3 className="font-serif text-2xl font-semibold">Ferramentas</h3>
+        <h3 className="font-serif text-2xl font-semibold">{cv.ui.toolsTitle}</h3>
         <dl className="mt-6 grid gap-6 sm:grid-cols-2">
-          {toolGroups.map((g) => (
+          {cv.toolGroups.map((g) => (
             <div key={g.label}>
               <dt className="text-sm font-bold text-muted-foreground">{g.label}</dt>
               <dd className="mt-3 flex flex-wrap gap-2">
@@ -50,7 +50,7 @@ export function Skills() {
       </div>
 
       <ul className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {competencies.map((c, i) => {
+        {cv.competencies.map((c, i) => {
           const Icon = icons[c.icon];
           return (
             <li

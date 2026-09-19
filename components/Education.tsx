@@ -1,12 +1,13 @@
 import { BookOpen, ChevronDown, CircleCheck, FileText, GraduationCap } from "lucide-react";
-import { certifications, education, languages, publications, type CertFile } from "@/content/cv";
+import type { CertFile, CV } from "@/content/types";
 import { Section, SectionHeading } from "./ui/Section";
 import { blobShapes } from "./ui/shapes";
 
-export function Education() {
+export function Education({ cv }: { cv: CV }) {
+  const { certifications, education, languages, publications, ui } = cv;
   return (
-    <Section id="formacao">
-      <SectionHeading title="Formação e certificações" />
+    <Section id="education">
+      <SectionHeading title={ui.educationTitle} />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.25fr_0.75fr]">
         <ol className="space-y-4">
@@ -31,27 +32,27 @@ export function Education() {
         </ol>
 
         <div className="rounded-[2rem] rounded-tr-[5rem] bg-lilac-soft/70 p-8 md:p-10">
-          <h3 className="font-serif text-2xl font-semibold">Certificações</h3>
+          <h3 className="font-serif text-2xl font-semibold">{ui.certificationsTitle}</h3>
           <ul className="mt-6 space-y-3">
             {certifications.map((c) => (
               <li key={c.name}>
-                <Certification name={c.name} files={c.files} />
+                <Certification name={c.name} files={c.files} pdfCertificate={ui.pdfCertificate} pdfFile={ui.pdfFile} />
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm text-muted-foreground">Clica num certificado para o abrir.</p>
+          <p className="mt-6 text-sm text-muted-foreground">{ui.certificationsHint}</p>
         </div>
       </div>
 
       <div className="mt-8 grid gap-8 md:grid-cols-2">
         <div className="rounded-[2rem] rounded-bl-[4rem] border border-border/50 bg-card p-8 shadow-soft md:p-10">
-          <h3 className="font-serif text-2xl font-semibold">Idiomas</h3>
+          <h3 className="font-serif text-2xl font-semibold">{ui.languagesTitle}</h3>
           <ul className="mt-6 space-y-5">
             {languages.map((l) => (
               <li key={l.name} className="flex items-center justify-between gap-4">
                 <span className="font-bold">{l.name}</span>
                 <span className="flex items-center gap-3">
-                  <span className="flex gap-1.5" role="img" aria-label={`Nível ${l.level}`}>
+                  <span className="flex gap-1.5" role="img" aria-label={`${ui.levelAria} ${l.level}`}>
                     {Array.from({ length: 6 }, (_, i) => (
                       <span
                         key={i}
@@ -67,13 +68,13 @@ export function Education() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm text-muted-foreground">Escala europeia CEFR, de A1 a C2.</p>
+          <p className="mt-6 text-sm text-muted-foreground">{ui.cefrNote}</p>
         </div>
 
         <div className="rounded-[2rem] rounded-tr-[4rem] border border-border/50 bg-card p-8 shadow-soft md:p-10">
           <div className="flex items-center gap-3">
             <BookOpen size={24} className="text-primary" aria-hidden="true" />
-            <h3 className="font-serif text-2xl font-semibold">Publicações e atividade académica</h3>
+            <h3 className="font-serif text-2xl font-semibold">{ui.publicationsTitle}</h3>
           </div>
           <ul className="mt-6 space-y-3">
             {publications.map((p) => (
@@ -91,7 +92,7 @@ export function Education() {
                     className="underline decoration-secondary/50 decoration-2 underline-offset-4 transition-colors hover:text-clay-ink hover:decoration-secondary"
                   >
                     {p.text}
-                    <span className="sr-only"> (certificado em PDF, abre num novo separador)</span>
+                    <span className="sr-only"> {ui.pdfCertificate}</span>
                   </a>
                 ) : (
                   p.text
@@ -113,7 +114,17 @@ const linkClass =
  * Um certificado: link direto para o PDF. Com vários certificados da mesma ferramenta,
  * mostra a quantidade no nome e abre a lista ao clicar.
  */
-function Certification({ name, files }: { name: string; files: CertFile[] }) {
+function Certification({
+  name,
+  files,
+  pdfCertificate,
+  pdfFile,
+}: {
+  name: string;
+  files: CertFile[];
+  pdfCertificate: string;
+  pdfFile: string;
+}) {
   if (files.length === 0) {
     return (
       <span className="inline-flex items-start gap-3 py-1 leading-snug">
@@ -130,7 +141,7 @@ function Certification({ name, files }: { name: string; files: CertFile[] }) {
         <span className="underline decoration-lilac decoration-2 underline-offset-4 group-hover/link:decoration-primary">
           {name}
         </span>
-        <span className="sr-only"> (certificado em PDF, abre num novo separador)</span>
+        <span className="sr-only"> {pdfCertificate}</span>
       </a>
     );
   }
@@ -161,7 +172,7 @@ function Certification({ name, files }: { name: string; files: CertFile[] }) {
             >
               <FileText size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
               <span className="underline decoration-lilac underline-offset-4">{f.label}</span>
-              <span className="sr-only"> (PDF, abre num novo separador)</span>
+              <span className="sr-only"> {pdfFile}</span>
             </a>
           </li>
         ))}

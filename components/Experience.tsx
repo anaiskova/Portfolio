@@ -2,23 +2,24 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
-import { earlierExperience, experience, projects } from "@/content/cv";
+import type { CV } from "@/content/types";
 import { Section, SectionHeading } from "./ui/Section";
 import { blobShapes, cardRadii } from "./ui/shapes";
 
 // Caminho suave, desenhado "à mão", que liga as experiências
 const path = "M20 0 C 30 90, 10 180, 20 270 S 30 450, 20 540 S 10 720, 20 810 S 30 930, 20 1000";
 
-export function Experience() {
+export function Experience({ cv }: { cv: CV }) {
+  const { earlierExperience, experience, projects } = cv;
   const ref = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 55%"] });
   const pathLength = useSpring(scrollYProgress, { stiffness: 80, damping: 25, restDelta: 0.001 });
 
   return (
-    <Section id="experiencia" className="bg-accent/30">
+    <Section id="experience" className="bg-accent/30">
       <SectionHeading
-        title="Experiência profissional"
-        intro="Da investigação académica ao empreendedorismo: sempre com os dados no centro das decisões."
+        title={cv.ui.experienceTitle}
+        intro={cv.ui.experienceIntro}
       />
 
       <div className="relative mt-10">
@@ -78,7 +79,7 @@ export function Experience() {
                 </ul>
 
                 {job.tags.length > 0 && (
-                  <ul className="mt-6 flex flex-wrap gap-2" aria-label="Ferramentas e áreas">
+                  <ul className="mt-6 flex flex-wrap gap-2" aria-label={cv.ui.tagsAria}>
                     {job.tags.map((t) => (
                       <li key={t} className="rounded-full bg-lilac-soft px-3 py-1 text-sm font-semibold text-primary">
                         {t}
@@ -89,14 +90,14 @@ export function Experience() {
 
                 {job.projects.length > 0 && (
                   <div className="mt-6 flex flex-wrap items-center gap-2">
-                    <span className="text-sm font-bold text-muted-foreground">Projetos:</span>
+                    <span className="text-sm font-bold text-muted-foreground">{cv.ui.projectsLabel}</span>
                     {job.projects.map((id) => {
                       const proj = projects.find((p) => p.id === id);
                       if (!proj) return null;
                       return (
                         <a
                           key={id}
-                          href={`#projeto-${id}`}
+                          href={`#project-${id}`}
                           className="rounded-full border-2 border-lilac bg-card px-3 py-1 text-sm font-bold text-primary transition-all duration-300 hover:scale-105 hover:border-primary hover:bg-lilac-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                         >
                           {proj.name}

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { Download, Mail } from "lucide-react";
-import { profile, strengths } from "@/content/cv";
+import { profile } from "@/content/shared";
+import type { CV } from "@/content/types";
 import { Blob } from "./ui/Blob";
 import { Button } from "./ui/Button";
 import { LinkedInIcon } from "./ui/LinkedInIcon";
@@ -21,8 +22,6 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
 };
 
-// Qualidades em destaque a "flutuar" à volta do retrato
-const floating = strengths.slice(0, 4);
 // Esquerda alinhada à esquerda, direita alinhada à direita, em diagonal: nunca tapam as letras
 const pillPositions = [
   "top-[3%] -left-6",
@@ -32,11 +31,13 @@ const pillPositions = [
 ];
 const dotColors = ["bg-primary", "bg-secondary", "bg-secondary", "bg-primary"];
 
-export function Hero() {
+export function Hero({ cv }: { cv: CV }) {
   const reduce = useReducedMotion();
+  // Qualidades em destaque a "flutuar" à volta do retrato
+  const floating = cv.strengths.slice(0, 4);
 
   return (
-    <section id="topo" className="relative flex min-h-svh items-center overflow-hidden px-4 pb-24 pt-28 sm:px-6 md:pb-32 md:pt-40 lg:px-8">
+    <section id="top" className="relative flex min-h-svh items-center overflow-hidden px-4 pb-24 pt-28 sm:px-6 md:pb-32 md:pt-40 lg:px-8">
       <Blob shape={0} className="-right-32 -top-32 h-[30rem] w-[30rem] bg-lilac/60" />
       <Blob shape={1} className="-left-40 top-1/2 h-80 w-80 bg-accent/70" />
 
@@ -50,26 +51,26 @@ export function Hero() {
           </motion.h1>
 
           <motion.p variants={item} className="mt-4 font-serif text-2xl font-semibold text-primary md:text-3xl">
-            {profile.role}
+            {cv.role}
           </motion.p>
 
           <motion.p variants={item} className="mt-6 max-w-2xl text-balance text-lg leading-relaxed text-accent-foreground md:text-xl">
-            {profile.tagline}
+            {cv.tagline}
           </motion.p>
 
           <motion.div variants={item} className="mt-10 flex flex-wrap gap-4">
             <Button href={`mailto:${profile.email}`}>
               <Mail size={20} aria-hidden="true" />
-              Enviar email
+              {cv.ui.sendEmail}
             </Button>
             <Button href={profile.linkedin} variant="outline" target="_blank" rel="noopener noreferrer">
               <LinkedInIcon size={20} />
-              Ver LinkedIn
+              {cv.ui.viewLinkedIn}
             </Button>
             {profile.cvPdf && (
               <Button href={profile.cvPdf} variant="ghost" download>
                 <Download size={20} aria-hidden="true" />
-                Descarregar CV
+                {cv.ui.downloadCv}
               </Button>
             )}
           </motion.div>
@@ -91,7 +92,7 @@ export function Hero() {
             {profile.photo ? (
               <Image
                 src={profile.photo}
-                alt={`Fotografia de ${profile.name}`}
+                alt={`${cv.ui.photoAlt} ${profile.name}`}
                 fill
                 priority
                 sizes="(min-width: 640px) 26rem, 20rem"
@@ -130,7 +131,7 @@ export function Hero() {
           ))}
         </motion.div>
 
-        <ul className="order-first -mt-4 flex flex-wrap justify-center gap-2 sm:hidden" aria-label="Qualidades">
+        <ul className="order-first -mt-4 flex flex-wrap justify-center gap-2 sm:hidden" aria-label={cv.ui.strengthsAria}>
           {floating.map((tool, i) => (
             <li
               key={tool}

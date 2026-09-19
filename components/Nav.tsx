@@ -3,20 +3,22 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { profile } from "@/content/cv";
+import { profile } from "@/content/shared";
+import type { CV } from "@/content/types";
+import { LanguageSwitch } from "./LanguageSwitch";
 import { Button } from "./ui/Button";
 import { blobShapes } from "./ui/shapes";
 
-const links = [
-  { href: "#sobre", label: "Sobre" },
-  { href: "#competencias", label: "Competências" },
-  { href: "#experiencia", label: "Experiência" },
-  { href: "#formacao", label: "Formação" },
-  { href: "#projetos", label: "Projetos" },
-];
 
-export function Nav() {
+export function Nav({ cv }: { cv: CV }) {
   const [open, setOpen] = useState(false);
+  const links = [
+    { href: "#about", label: cv.ui.nav.about },
+    { href: "#skills", label: cv.ui.nav.skills },
+    { href: "#experience", label: cv.ui.nav.experience },
+    { href: "#education", label: cv.ui.nav.education },
+    { href: "#projects", label: cv.ui.nav.projects },
+  ];
 
   useEffect(() => {
     if (!open) return;
@@ -28,11 +30,11 @@ export function Nav() {
   return (
     <header className="fixed inset-x-0 top-4 z-40 px-4">
       <nav
-        aria-label="Principal"
+        aria-label={cv.ui.navAria}
         className="relative mx-auto flex max-w-5xl items-center justify-between rounded-full border border-border/50 bg-white/70 py-2 pl-2 pr-2 shadow-soft backdrop-blur-md md:pr-3"
       >
         <a
-          href="#topo"
+          href="#top"
           className="flex items-center gap-3 rounded-full pr-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
         >
           <span
@@ -42,7 +44,7 @@ export function Nav() {
           >
             {profile.initials}
           </span>
-          <span className="whitespace-nowrap font-serif text-lg font-semibold">{profile.name}</span>
+          <span className="hidden whitespace-nowrap font-serif text-lg font-semibold min-[380px]:inline">{profile.name}</span>
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -58,22 +60,25 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="hidden md:block">
-          <Button href="#contacto" size="sm">
-            Contactar
-          </Button>
-        </div>
+        <div className="flex items-center gap-2">
+          <LanguageSwitch cv={cv} />
+          <div className="hidden md:block">
+            <Button href="#contact" size="sm">
+              {cv.ui.nav.contact}
+            </Button>
+          </div>
 
-        <button
+          <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="menu-movel"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-label={open ? cv.ui.closeMenu : cv.ui.openMenu}
           className="grid h-11 w-11 place-items-center rounded-full text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:hidden"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
+        </div>
 
         <AnimatePresence>
           {open && (
@@ -98,8 +103,8 @@ export function Nav() {
                   </li>
                 ))}
               </ul>
-              <Button href="#contacto" onClick={() => setOpen(false)} className="mt-3 w-full">
-                Contactar
+              <Button href="#contact" onClick={() => setOpen(false)} className="mt-3 w-full">
+                {cv.ui.nav.contact}
               </Button>
             </motion.div>
           )}

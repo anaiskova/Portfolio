@@ -1,22 +1,22 @@
-import { about, stats } from "@/content/cv";
+import type { CV } from "@/content/types";
 import { Section, SectionHeading } from "./ui/Section";
 import { cardRadii } from "./ui/shapes";
 
-export function About() {
+export function About({ cv }: { cv: CV }) {
   return (
-    <Section id="sobre" className="bg-muted/40">
+    <Section id="about" className="bg-muted/40">
       <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
         <div>
-          <SectionHeading title="Sobre mim" />
+          <SectionHeading title={cv.ui.aboutTitle} />
           <div className="mt-8 space-y-5 text-justify text-lg leading-relaxed text-accent-foreground hyphens-auto">
-            {about.map((p) => (
+            {cv.about.map((p) => (
               <p key={p}>{p}</p>
             ))}
           </div>
         </div>
 
         <dl className="grid grid-cols-2 gap-6 md:gap-8">
-          {stats.map((s, i) => (
+          {cv.stats.map((s, i) => (
             <div
               key={s.label}
               className={`group border border-border/50 bg-card p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-lift md:p-8 ${cardRadii[i]} ${i % 2 === 1 ? "sm:translate-y-8 sm:hover:translate-y-7" : ""}`}
