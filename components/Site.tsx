@@ -7,11 +7,13 @@ import { Hero } from "./Hero";
 import { Nav } from "./Nav";
 import { Projects } from "./Projects";
 import { Skills } from "./Skills";
+import { StructuredData } from "./StructuredData";
 
 /** A página completa, numa língua. */
 export function Site({ cv }: { cv: CV }) {
   return (
     <>
+      <StructuredData cv={cv} />
       <a
         href="#about"
         className="sr-only z-50 rounded-full bg-primary px-6 py-3 font-bold text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4"

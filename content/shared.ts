@@ -1,5 +1,11 @@
 import type { CertFile } from "./types";
 
+/**
+ * Endereço público do site, sem barra no fim.
+ * Se comprares um domínio próprio, basta mudar aqui (ex.: "https://anaiskovaleski.com").
+ */
+export const siteUrl = "https://portfolio-anaiskova.vercel.app";
+
 /** Dados que não mudam com a língua. */
 export const profile = {
   name: "Anaïs Kovaleski",

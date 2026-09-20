@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Site } from "@/components/Site";
 import { dictionaries } from "@/content";
-import { profile } from "@/content/shared";
+import { pageMetadata } from "@/lib/seo";
 
 // Páginas /pt e /fr. O inglês vive em /, e /en redireciona para / (ver next.config.ts).
 const extraLangs = ["pt", "fr"] as const;
@@ -18,13 +18,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   if (!isExtraLang(lang)) return {};
-  const cv = dictionaries[lang];
-  const title = `${profile.name} · ${cv.role}`;
-  return {
-    title,
-    description: cv.tagline,
-    openGraph: { title, description: cv.tagline, type: "profile", locale: cv.ogLocale },
-  };
+  return pageMetadata(dictionaries[lang]);
 }
 
 export default async function Page({ params }: { params: Promise<{ lang: string }> }) {

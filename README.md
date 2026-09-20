@@ -29,6 +29,16 @@ Quando mudares alguma coisa, muda nos três ficheiros de língua. Os componentes
 2. Coloca o CV em `public/cv.pdf` e em `content/shared.ts` muda `cvPdf: undefined` para `cvPdf: "/cv.pdf"`.
    Aparece um botão "Descarregar CV" no topo.
 
+## Pesquisa e partilha (SEO)
+
+- **Endereço do site**: `siteUrl` em `content/shared.ts`. Se comprares um domínio próprio, muda só aqui.
+- **Imagens de partilha** (LinkedIn, WhatsApp…): `public/og/en.png`, `pt.png` e `fr.png` (1200×630).
+- **Favicon**: `app/icon.svg`, `app/favicon.ico` e `app/apple-icon.png`.
+- **Títulos, descrições, canónicas e línguas alternativas**: `lib/seo.ts`.
+- **Dados estruturados (schema.org/Person)**: `components/StructuredData.tsx`.
+- **Sitemap e robots**: `app/sitemap.ts` e `app/robots.ts` (ficam em /sitemap.xml e /robots.txt).
+- **Página 404**: `app/not-found.tsx`.
+
 ## Publicar
 
 A forma mais simples é a Vercel: cria um repositório no GitHub com esta pasta,
