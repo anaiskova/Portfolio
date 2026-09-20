@@ -1,6 +1,6 @@
 /** Estrutura do conteúdo. As duas línguas (en.ts e pt.ts) têm de seguir este formato. */
 
-export type Lang = "en" | "pt";
+export type Lang = "en" | "pt" | "fr";
 
 /** 3 = com experiência, 2 = intermédio, 1 = básico, 0 = em consolidação */
 export type Level = 0 | 1 | 2 | 3;
@@ -13,11 +13,10 @@ export type CV = {
   lang: Lang;
   htmlLang: string;
   ogLocale: string;
-  /** Link e texto do botão que troca de língua */
-  switcher: { href: string; label: string; ariaLabel: string };
   ui: {
     nav: { about: string; skills: string; experience: string; education: string; projects: string; contact: string };
     navAria: string;
+    languageAria: string;
     openMenu: string;
     closeMenu: string;
     skipToContent: string;

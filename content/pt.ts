@@ -6,7 +6,6 @@ export const pt: CV = {
   lang: "pt",
   htmlLang: "pt-PT",
   ogLocale: "pt_PT",
-  switcher: { href: "/", label: "EN", ariaLabel: "View the site in English" },
 
   ui: {
     nav: {
@@ -18,6 +17,7 @@ export const pt: CV = {
       contact: "Contactar",
     },
     navAria: "Principal",
+    languageAria: "Idioma",
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
     skipToContent: "Saltar para o conteúdo",

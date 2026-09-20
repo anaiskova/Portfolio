@@ -45,7 +45,7 @@ export function Hero({ cv }: { cv: CV }) {
         <motion.div variants={container} initial="hidden" animate="show">
           <motion.h1
             variants={item}
-            className="font-serif text-[2.6rem] font-bold leading-[1.05] tracking-tight sm:text-5xl lg:whitespace-nowrap lg:text-[3.1rem] xl:text-6xl"
+            className="font-serif text-[clamp(2.1rem,11.5vw,2.6rem)] font-bold leading-[1.05] tracking-tight sm:text-5xl lg:whitespace-nowrap lg:text-[3.1rem] xl:text-6xl"
           >
             {profile.name},{"\u00A0"}{profile.suffix}
           </motion.h1>

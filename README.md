@@ -16,9 +16,10 @@ Abre http://localhost:3000
 
 - **Texto em inglês** (versão principal, em `/`): `content/en.ts`
 - **Texto em português** (versão em `/pt`): `content/pt.ts`
+- **Texto em francês** (versão em `/fr`): `content/fr.ts`
 - **Dados comuns às duas línguas** (nome, email, LinkedIn, ficheiros dos certificados): `content/shared.ts`
 
-Quando mudares alguma coisa, muda nos dois ficheiros de língua. Os componentes não têm texto fixo.
+Quando mudares alguma coisa, muda nos três ficheiros de língua. Os componentes não têm texto fixo.
 - **Cores, sombras e fontes**: `app/globals.css` (bloco `@theme`).
 - **Formas orgânicas partilhadas**: `components/ui/shapes.ts`.
 
@@ -43,7 +44,7 @@ lib/
   fonts.ts         fontes (Fraunces + Nunito)
 components/
   Site.tsx         a página completa, numa língua
-  LanguageSwitch.tsx  botão EN / PT
+  LanguageSwitch.tsx  botões EN / PT / FR
   Nav.tsx          navegação em pílula flutuante + menu móvel
   Hero.tsx         apresentação com retrato orgânico animado
   About.tsx        sobre mim + números
@@ -54,7 +55,8 @@ components/
   Contact.tsx      contacto + rodapé
   ui/              Blob, Button, Section, formas partilhadas
 content/
-  en.ts / pt.ts    todo o texto, em cada língua
+  en.ts / pt.ts / fr.ts  todo o texto, em cada língua
+  languages.ts     lista das línguas do botão EN / PT / FR
   shared.ts        dados comuns e certificados
   types.ts         formato que as duas línguas seguem
 ```

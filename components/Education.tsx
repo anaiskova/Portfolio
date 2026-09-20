@@ -45,14 +45,14 @@ export function Education({ cv }: { cv: CV }) {
       </div>
 
       <div className="mt-8 grid gap-8 md:grid-cols-2">
-        <div className="rounded-[2rem] rounded-bl-[4rem] border border-border/50 bg-card p-8 shadow-soft md:p-10">
+        <div className="rounded-[2rem] rounded-bl-[4rem] border border-border/50 bg-card p-6 shadow-soft sm:p-8 md:p-10">
           <h3 className="font-serif text-2xl font-semibold">{ui.languagesTitle}</h3>
           <ul className="mt-6 space-y-5">
             {languages.map((l) => (
-              <li key={l.name} className="flex items-center justify-between gap-4">
+              <li key={l.name} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
                 <span className="font-bold">{l.name}</span>
                 <span className="flex items-center gap-3">
-                  <span className="flex gap-1.5" role="img" aria-label={`${ui.levelAria} ${l.level}`}>
+                  <span className="flex gap-1 sm:gap-1.5" role="img" aria-label={`${ui.levelAria} ${l.level}`}>
                     {Array.from({ length: 6 }, (_, i) => (
                       <span
                         key={i}

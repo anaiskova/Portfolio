@@ -10,7 +10,7 @@ const title = `${profile.name} · ${en.role}`;
 export const metadata: Metadata = {
   title,
   description: en.tagline,
-  alternates: { languages: { "en-GB": "/", "pt-PT": "/pt" } },
+  alternates: { languages: { "en-GB": "/", "pt-PT": "/pt", "fr-FR": "/fr" } },
   openGraph: { title, description: en.tagline, type: "profile", locale: en.ogLocale },
 };
 

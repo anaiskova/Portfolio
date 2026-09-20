@@ -31,7 +31,7 @@ export function Nav({ cv }: { cv: CV }) {
     <header className="fixed inset-x-0 top-4 z-40 px-4">
       <nav
         aria-label={cv.ui.navAria}
-        className="relative mx-auto flex max-w-5xl items-center justify-between rounded-full border border-border/50 bg-white/70 py-2 pl-2 pr-2 shadow-soft backdrop-blur-md md:pr-3"
+        className="relative mx-auto flex max-w-5xl items-center justify-between rounded-full border border-border/50 bg-white/70 py-2 pl-2 pr-2 shadow-soft backdrop-blur-md lg:pr-3"
       >
         <a
           href="#top"
@@ -44,10 +44,10 @@ export function Nav({ cv }: { cv: CV }) {
           >
             {profile.initials}
           </span>
-          <span className="hidden whitespace-nowrap font-serif text-lg font-semibold min-[380px]:inline">{profile.name}</span>
+          <span className="hidden whitespace-nowrap font-serif text-lg font-semibold min-[440px]:inline">{profile.name}</span>
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
               <a
@@ -62,7 +62,7 @@ export function Nav({ cv }: { cv: CV }) {
 
         <div className="flex items-center gap-2">
           <LanguageSwitch cv={cv} />
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Button href="#contact" size="sm">
               {cv.ui.nav.contact}
             </Button>
@@ -74,7 +74,7 @@ export function Nav({ cv }: { cv: CV }) {
           aria-expanded={open}
           aria-controls="menu-movel"
           aria-label={open ? cv.ui.closeMenu : cv.ui.openMenu}
-          className="grid h-11 w-11 place-items-center rounded-full text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 md:hidden"
+          className="grid h-11 w-11 place-items-center rounded-full text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 lg:hidden"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -88,7 +88,7 @@ export function Nav({ cv }: { cv: CV }) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-x-0 top-full mt-3 rounded-[2rem] border border-border/50 bg-white/90 p-4 shadow-float backdrop-blur-md md:hidden"
+              className="absolute inset-x-0 top-full mt-3 rounded-[2rem] border border-border/50 bg-white/90 p-4 shadow-float backdrop-blur-md lg:hidden"
             >
               <ul className="flex flex-col">
                 {links.map((l) => (
