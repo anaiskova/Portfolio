@@ -1,6 +1,7 @@
+import { caseStudyPaths } from "@/content/case-study";
 import { languageOptions } from "@/content/languages";
 import { profile, siteUrl } from "@/content/shared";
-import type { CV } from "@/content/types";
+import type { CaseStudy, CV } from "@/content/types";
 
 /**
  * Dados estruturados (schema.org/Person): dizem ao Google quem é a pessoa por trás do site.
@@ -45,6 +46,31 @@ export function StructuredData({ cv }: { cv: CV }) {
     <script
       type="application/ld+json"
       // JSON gerado a partir de dados do próprio site; o "<" é escapado por segurança
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
+  );
+}
+
+/**
+ * Dados estruturados do estudo de caso (schema.org/Article): dizem ao Google que a página
+ * é um trabalho escrito, de quem e sobre o quê.
+ */
+export function CaseStudyData({ cs }: { cs: CaseStudy }) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: cs.title,
+    description: cs.intro,
+    inLanguage: cs.locale,
+    url: new URL(caseStudyPaths[cs.lang], siteUrl).toString(),
+    image: new URL(`/og/case-${cs.lang}.png`, siteUrl).toString(),
+    author: { "@type": "Person", name: profile.name, url: siteUrl },
+    publisher: { "@type": "Person", name: profile.name },
+    about: cs.method.tools,
+  };
+  return (
+    <script
+      type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
     />
   );

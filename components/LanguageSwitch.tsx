@@ -1,9 +1,10 @@
 import { Globe } from "lucide-react";
 import { languageOptions } from "@/content/languages";
-import type { CV } from "@/content/types";
+import type { CV, Lang } from "@/content/types";
 
 /** Grupo de botões EN / PT / FR. A língua atual fica destacada. */
-export function LanguageSwitch({ cv }: { cv: CV }) {
+/** `paths` substitui os endereços por defeito, para o botão ficar na mesma página noutra língua. */
+export function LanguageSwitch({ cv, paths }: { cv: CV; paths?: Record<Lang, string> }) {
   return (
     <div
       role="group"
@@ -16,7 +17,7 @@ export function LanguageSwitch({ cv }: { cv: CV }) {
         return (
           <a
             key={o.lang}
-            href={o.path}
+            href={paths ? paths[o.lang] : o.path}
             hrefLang={o.htmlLang}
             lang={o.htmlLang}
             aria-label={o.ariaLabel}

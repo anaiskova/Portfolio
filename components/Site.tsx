@@ -1,5 +1,6 @@
 import type { CV } from "@/content/types";
 import { About } from "./About";
+import { CaseStudyTeaser } from "./CaseStudyTeaser";
 import { Contact, Footer } from "./Contact";
 import { Education } from "./Education";
 import { Experience } from "./Experience";
@@ -26,6 +27,7 @@ export function Site({ cv }: { cv: CV }) {
         <About cv={cv} />
         <Skills cv={cv} />
         <Experience cv={cv} />
+        <CaseStudyTeaser cv={cv} />
         <Education cv={cv} />
         <Projects cv={cv} />
         <Contact cv={cv} />

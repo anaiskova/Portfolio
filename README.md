@@ -17,6 +17,7 @@ Abre http://localhost:3000
 - **Texto em inglês** (versão principal, em `/`): `content/en.ts`
 - **Texto em português** (versão em `/pt`): `content/pt.ts`
 - **Texto em francês** (versão em `/fr`): `content/fr.ts`
+- **Estudo de caso**: `content/case-study/en.ts`, `pt.ts` e `fr.ts`
 - **Dados comuns às duas línguas** (nome, email, LinkedIn, ficheiros dos certificados): `content/shared.ts`
 
 Quando mudares alguma coisa, muda nos três ficheiros de língua. Os componentes não têm texto fixo.
@@ -38,6 +39,13 @@ Quando mudares alguma coisa, muda nos três ficheiros de língua. Os componentes
 - **Dados estruturados (schema.org/Person)**: `components/StructuredData.tsx`.
 - **Sitemap e robots**: `app/sitemap.ts` e `app/robots.ts` (ficam em /sitemap.xml e /robots.txt).
 - **Página 404**: `app/not-found.tsx`.
+- **PDF do estudo de caso**: `public/case-study-anais-kovaleski.pdf`.
+
+## Cores dos gráficos
+
+Em `app/globals.css`: `--color-chart-a` (lavanda) e `--color-chart-b` (terracota).
+Este par foi validado para daltonismo e para contraste mínimo de 3:1; se trocares as
+cores, volta a validar antes de publicar.
 
 ## Publicar
 
@@ -62,6 +70,9 @@ components/
   Experience.tsx   linha temporal que se desenha com o scroll
   Education.tsx    formação, certificações, idiomas, publicações
   Projects.tsx     projetos de investigação (citados na experiência)
+  CaseStudyPage.tsx    página do estudo de caso (/case-study, /pt/case-study, /fr/case-study)
+  CaseStudyTeaser.tsx  bloco de destaque na página principal
+  charts/          os dois gráficos do estudo de caso, em HTML (sem bibliotecas)
   Contact.tsx      contacto + rodapé
   ui/              Blob, Button, Section, formas partilhadas
 content/

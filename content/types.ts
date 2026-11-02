@@ -81,3 +81,49 @@ export type CV = {
   languages: { name: string; level: string; score: number }[];
   publications: { text: string; href?: string }[];
 };
+
+/** Estudo de caso: uma página própria por língua, em /case-study. */
+export type CaseStudy = {
+  lang: Lang;
+  /** Para formatar números: "pt-PT" usa vírgula decimal, "en-GB" usa ponto. */
+  locale: string;
+  /** Rótulo no menu e no bloco de destaque da página principal. */
+  navLabel: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  intro: string;
+  source: string;
+  backToSite: string;
+  downloadPdf: string;
+  /** Nota sobre a língua do PDF (vazia na versão inglesa). */
+  pdfNote: string;
+  stats: { value: string; label: string }[];
+  /** Bloco de destaque na página principal. */
+  teaser: { eyebrow: string; text: string; cta: string };
+  question: { title: string; text: string };
+  data: { title: string; text: string };
+  method: { title: string; toolsAria: string; tools: string[]; steps: { title: string; text: string }[] };
+  attendanceChart: {
+    title: string;
+    subtitle: string;
+    before: string;
+    after: string;
+    axisLabel: string;
+    rows: { category: string; before: number; after: number }[];
+    note: string;
+  };
+  results: { title: string; items: { value?: string; title: string; text: string }[] };
+  behaviourChart: {
+    title: string;
+    subtitle: string;
+    centreLabel: string;
+    moreLabel: string;
+    lessLabel: string;
+    items: { label: string; value: number }[];
+    note: string;
+  };
+  explains: { title: string; text: string };
+  recommendations: { title: string; items: { title: string; text: string }[] };
+  methodsFooter: string;
+};

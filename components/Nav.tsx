@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
+import { caseStudies, caseStudyPaths } from "@/content/case-study";
 import { profile } from "@/content/shared";
 import type { CV } from "@/content/types";
 import { LanguageSwitch } from "./LanguageSwitch";
@@ -10,15 +11,22 @@ import { Button } from "./ui/Button";
 import { blobShapes } from "./ui/shapes";
 
 
-export function Nav({ cv }: { cv: CV }) {
+/**
+ * `homePath` só é usado fora da página principal (no estudo de caso): aí as âncoras
+ * precisam de levar de volta à página principal, em vez de apontar para a própria página.
+ */
+export function Nav({ cv, homePath = "" }: { cv: CV; homePath?: string }) {
   const [open, setOpen] = useState(false);
+  const base = homePath === "/" ? "/" : homePath;
   const links = [
-    { href: "#about", label: cv.ui.nav.about },
-    { href: "#skills", label: cv.ui.nav.skills },
-    { href: "#experience", label: cv.ui.nav.experience },
-    { href: "#education", label: cv.ui.nav.education },
-    { href: "#projects", label: cv.ui.nav.projects },
+    { href: `${base}#about`, label: cv.ui.nav.about },
+    { href: `${base}#skills`, label: cv.ui.nav.skills },
+    { href: `${base}#experience`, label: cv.ui.nav.experience },
+    { href: caseStudyPaths[cv.lang], label: caseStudies[cv.lang].navLabel },
+    { href: `${base}#education`, label: cv.ui.nav.education },
+    { href: `${base}#projects`, label: cv.ui.nav.projects },
   ];
+  const contactHref = `${base}#contact`;
 
   useEffect(() => {
     if (!open) return;
@@ -31,10 +39,10 @@ export function Nav({ cv }: { cv: CV }) {
     <header className="fixed inset-x-0 top-4 z-40 px-4">
       <nav
         aria-label={cv.ui.navAria}
-        className="relative mx-auto flex max-w-5xl items-center justify-between rounded-full border border-border/50 bg-white/70 py-2 pl-2 pr-2 shadow-soft backdrop-blur-md lg:pr-3"
+        className="relative mx-auto flex max-w-5xl items-center justify-between rounded-full lg:max-w-6xl border border-border/50 bg-white/70 py-2 pl-2 pr-2 shadow-soft backdrop-blur-md lg:pr-3"
       >
         <a
-          href="#top"
+          href={base || "#top"}
           className="flex items-center gap-3 rounded-full pr-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
         >
           <span
@@ -47,12 +55,12 @@ export function Nav({ cv }: { cv: CV }) {
           <span className="hidden whitespace-nowrap font-serif text-lg font-semibold min-[440px]:inline">{profile.name}</span>
         </a>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
           {links.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors duration-300 hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                className="rounded-full px-3 py-2 text-sm font-semibold text-accent-foreground xl:px-4 transition-colors duration-300 hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
               >
                 {l.label}
               </a>
@@ -61,9 +69,9 @@ export function Nav({ cv }: { cv: CV }) {
         </ul>
 
         <div className="flex items-center gap-2">
-          <LanguageSwitch cv={cv} />
+          <LanguageSwitch cv={cv} paths={homePath ? caseStudyPaths : undefined} />
           <div className="hidden lg:block">
-            <Button href="#contact" size="sm">
+            <Button href={contactHref} size="sm">
               {cv.ui.nav.contact}
             </Button>
           </div>
@@ -103,7 +111,7 @@ export function Nav({ cv }: { cv: CV }) {
                   </li>
                 ))}
               </ul>
-              <Button href="#contact" onClick={() => setOpen(false)} className="mt-3 w-full">
+              <Button href={contactHref} onClick={() => setOpen(false)} className="mt-3 w-full">
                 {cv.ui.nav.contact}
               </Button>
             </motion.div>

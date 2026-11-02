@@ -15,7 +15,7 @@ export function About({ cv }: { cv: CV }) {
           </div>
         </div>
 
-        <dl className="grid grid-cols-2 gap-6 md:gap-8">
+        <dl className="grid grid-cols-1 gap-6 min-[360px]:grid-cols-2 md:gap-8">
           {cv.stats.map((s, i) => (
             <div
               key={s.label}
